@@ -19,7 +19,8 @@ import { BrandingModule } from './branding/branding.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        type: 'mysql',
+        type: config.get<string>('DATABASE_URL') ? 'postgres' : 'mysql',
+        url: config.get<string>('DATABASE_URL'), // Se existir a URL, ele ignora os de baixo
         host: config.get<string>('DB_HOST', 'localhost'),
         port: parseInt(config.get<string>('DB_PORT', '3306'), 10),
         username: config.get<string>('DB_USER', 'root'),
