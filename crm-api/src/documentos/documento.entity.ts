@@ -32,7 +32,7 @@ export class Documento {
   @Column({ type: 'bigint' })
   tamanho: number; // em bytes
 
-  @Column({ type: 'longblob', nullable: true })
+  @Column({ type: process.env.DATABASE_URL ? 'bytea' : 'longblob', nullable: true })
   conteudo: Buffer;
 
   @ManyToOne(() => Empresa)
