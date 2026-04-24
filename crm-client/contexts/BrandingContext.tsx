@@ -48,6 +48,8 @@ interface BrandingContextType {
 
 const defaultLoginImages = [
   '/image/imagem1.jpg',
+  '/image/fundo.webp',
+
 ];
 
 const BrandingContext = createContext<BrandingContextType>({
