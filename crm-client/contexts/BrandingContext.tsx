@@ -47,18 +47,13 @@ interface BrandingContextType {
 }
 
 const defaultLoginImages = [
-  '/image/imagem1.png',
-  '/image/imagem2.png',
-  '/image/imagem3.png',
-  '/image/imagem4.png',
-  '/image/imagem5.png',
-  '/image/imagem6.png',
+  '/image/imagem1.jpg',
 ];
 
 const BrandingContext = createContext<BrandingContextType>({
   branding: defaultBranding,
   loading: true,
-  refreshBranding: async () => {},
+  refreshBranding: async () => { },
   getLogoUrl: () => '/logo.png',
   getFaviconUrl: () => '/favicon.ico',
   getLoginImageUrls: () => defaultLoginImages,
@@ -79,7 +74,7 @@ function generateColorShades(hex: string) {
   const b = parseInt(hex.slice(5, 7), 16);
 
   return {
-    50:  `rgb(${Math.min(r + 190, 255)}, ${Math.min(g + 190, 255)}, ${Math.min(b + 190, 255)})`,
+    50: `rgb(${Math.min(r + 190, 255)}, ${Math.min(g + 190, 255)}, ${Math.min(b + 190, 255)})`,
     100: `rgb(${Math.min(r + 160, 255)}, ${Math.min(g + 160, 255)}, ${Math.min(b + 160, 255)})`,
     200: `rgb(${Math.min(r + 120, 255)}, ${Math.min(g + 120, 255)}, ${Math.min(b + 120, 255)})`,
     300: `rgb(${Math.min(r + 80, 255)}, ${Math.min(g + 80, 255)}, ${Math.min(b + 80, 255)})`,
@@ -113,7 +108,7 @@ function applyBrandingCSS(branding: BrandingConfig) {
   root.style.setProperty('--brand-primary-dark', branding.primaryDark);
   root.style.setProperty('--brand-primary-light', branding.primaryLight);
   root.style.setProperty('--brand-primary-bg', branding.primaryBg);
-  
+
   // Sidebar
   root.style.setProperty('--brand-sidebar-from', branding.sidebarFrom);
   root.style.setProperty('--brand-sidebar-to', branding.sidebarTo);
