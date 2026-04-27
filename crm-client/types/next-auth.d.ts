@@ -9,6 +9,7 @@ declare module 'next-auth' {
       name: string;
       cpf: string;
       funcao: string;
+      fotoPerfil?: string;
     };
   }
 
@@ -19,6 +20,7 @@ declare module 'next-auth' {
     accessToken?: string;
     cpf: string;
     funcao: string;
+    fotoPerfil?: string;
   }
 }
 
@@ -28,5 +30,6 @@ declare module 'next-auth/jwt' {
     id?: string;
     cpf?: string;
     funcao?: string;
+    fotoPerfil?: string;
   }
 }

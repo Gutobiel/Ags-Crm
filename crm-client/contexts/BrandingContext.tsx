@@ -48,7 +48,8 @@ interface BrandingContextType {
 
 const defaultLoginImages = [
   '/image/imagem1.jpg',
-  '/image/fundo2.mp4'
+  '/image/fundo2.mp4',
+  '/image/video2.mp4',
 
 ];
 

@@ -4,7 +4,9 @@ import "./globals.css";
 import { AuthProvider } from "./providers";
 import { NotificationProvider } from "@/contexts/NotificationContext";
 import { BrandingProvider } from "@/contexts/BrandingContext";
+import { ProfileProvider } from "@/contexts/ProfileContext";
 import NotificationContainer from "@/components/NotificationContainer";
+import ChatbotAssistant from "@/components/ChatbotAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +37,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <BrandingProvider>
-            <NotificationProvider>
-              {children}
-              <NotificationContainer />
-            </NotificationProvider>
-          </BrandingProvider>
+          <ProfileProvider>
+            <BrandingProvider>
+              <NotificationProvider>
+                {children}
+                <NotificationContainer />
+                <ChatbotAssistant />
+              </NotificationProvider>
+            </BrandingProvider>
+          </ProfileProvider>
         </AuthProvider>
       </body>
     </html>
