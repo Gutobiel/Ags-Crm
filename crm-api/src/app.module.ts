@@ -11,6 +11,7 @@ import { ProdutosModule } from './produtos/produtos.module';
 import { OrcamentosModule } from './orcamentos/orcamentos.module';
 import { DocumentosModule } from './documentos/documentos.module';
 import { BrandingModule } from './branding/branding.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { BrandingModule } from './branding/branding.module';
     OrcamentosModule,
     DocumentosModule,
     BrandingModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

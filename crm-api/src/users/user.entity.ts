@@ -35,6 +35,9 @@ export class User {
   @Column({ default: true })
   ativo: boolean;
 
+  @Column({ type: 'text', nullable: true })
+  fotoPerfil: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

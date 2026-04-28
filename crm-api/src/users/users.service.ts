@@ -63,6 +63,20 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+  async update(id: number, updateData: Partial<User>): Promise<User> {
+    const user = await this.findById(id);
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+    
+    if (updateData.password) {
+      updateData.password = await bcrypt.hash(updateData.password, 10);
+    }
+    
+    Object.assign(user, updateData);
+    return this.usersRepository.save(user);
+  }
+
   async checkUserRelations(id: number): Promise<{ hasRelations: boolean; relations: string[] }> {
     const relations: string[] = [];
     
