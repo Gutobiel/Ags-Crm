@@ -6,6 +6,8 @@ import { FiChevronUp, FiX, FiSend, FiUser } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useProfile } from '@/contexts/ProfileContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const PHRASES = [
   "Quantos contratos fechei esse mês?",
@@ -120,16 +122,18 @@ export default function ChatbotAssistant() {
     setInputValue("");
 
     const tempId = (Date.now() + 1).toString();
-    setMessages(prev => [...prev, { id: tempId, sender: 'bot', text: 'Pensando...' }]);
+    const newMessages = [...messages, newUserMsg];
+    setMessages([...newMessages, { id: tempId, sender: 'bot', text: 'Pensando...' }]);
 
     try {
+      const history = messages.filter(m => m.id !== '1').map(m => ({ role: m.sender, content: m.text }));
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session?.accessToken}`
         },
-        body: JSON.stringify({ message: currentInput })
+        body: JSON.stringify({ message: currentInput, history })
       });
       
       const data = await response.json();
@@ -202,8 +206,16 @@ export default function ChatbotAssistant() {
                   </div>
                 )}
                 
-                <div className={`p-3 rounded-2xl max-w-[75%] text-sm ${msg.sender === 'user' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-tl-none'}`}>
-                  {msg.text}
+                <div className={`p-3 rounded-2xl max-w-[85%] text-sm overflow-hidden ${msg.sender === 'user' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-tl-none'}`}>
+                  {msg.sender === 'user' ? (
+                    msg.text
+                  ) : (
+                    <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-gray-100 prose-pre:text-gray-800 break-words">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {msg.text}
+                      </ReactMarkdown>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

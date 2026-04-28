@@ -8,14 +8,18 @@ export class AiController {
 
   @UseGuards(JwtAuthGuard)
   @Post('chat')
-  async chat(@Body('message') message: string, @Request() req) {
+  async chat(
+    @Body('message') message: string, 
+    @Body('history') history: any[],
+    @Request() req
+  ) {
     if (!message) {
       return { reply: 'Mensagem inválida.' };
     }
     
     // In later phases we'll pass req.user for specific tool access, 
     // but for now we just reply to the message.
-    const reply = await this.aiService.processChatMessage(message);
+    const reply = await this.aiService.processChatMessage(message, history || []);
     
     return { reply };
   }
